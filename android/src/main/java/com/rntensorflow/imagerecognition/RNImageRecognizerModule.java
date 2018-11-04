@@ -5,6 +5,8 @@ import com.facebook.react.bridge.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.util.Log;
+
 public class RNImageRecognizerModule extends ReactContextBaseJavaModule {
 
     private Map<String, ImageRecognizer> imageRecognizers = new HashMap<>();
@@ -39,6 +41,7 @@ public class RNImageRecognizerModule extends ReactContextBaseJavaModule {
             imageRecognizers.put(id, imageRecognizer);
             promise.resolve(true);
         } catch (Exception e) {
+            Log.e("ReactNative", "initImageRecognizer promise rejected, exception:", e);
             promise.reject(e);
         }
     }
@@ -57,6 +60,7 @@ public class RNImageRecognizerModule extends ReactContextBaseJavaModule {
             WritableArray result = imageRecognizer.recognizeImage(image, inputName, inputSize, outputName, maxResults, threshold);
             promise.resolve(result);
         } catch (Exception e) {
+            Log.i("ReactNative", "recognize() exception: ", e);
             promise.reject(e);
         }
     }
